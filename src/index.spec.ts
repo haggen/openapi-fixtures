@@ -1,4 +1,4 @@
-import { getExample } from ".";
+import { getExample, getFixture } from ".";
 
 describe("getExample", () => {
   it("works with static examples", () => {
@@ -58,5 +58,34 @@ describe("getExample", () => {
         ],
       })
     ).toEqual({ a: "a", b: "b" });
+  });
+});
+
+describe("getFixture", () => {
+  it("works", () => {
+    const operation = {
+      parameters: [
+        {
+          name: "id",
+          schema: { example: 1 },
+        },
+      ],
+      responses: {
+        "200": {
+          content: {
+            "application/json": {
+              schema: {
+                type: "object",
+                properties: { name: { type: "string", example: "Max" } },
+              },
+            },
+          },
+        },
+      },
+    };
+    expect(getFixture("get", "/stores/{id}/pets", operation)).toEqual({
+      path: "/stores/1/pets/get.json",
+      data: { name: "Max" },
+    });
   });
 });
