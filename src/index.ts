@@ -208,7 +208,7 @@ export const getResponse = (responses: any): any => {
  * @returns A fixture object.
  */
 export const getFixture = (method: string, path: string, operation: any) => {
-  const response = getResponse(operation);
+  const response = getResponse(operation.responses);
   if (!response) {
     return null;
   }
